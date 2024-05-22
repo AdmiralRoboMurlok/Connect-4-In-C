@@ -21,6 +21,12 @@ int main() {
         drawBoard();
 
         playerMove();
+        winner = checkWinner();
+        if (winner != ' '){
+            break;
+        }
+
+
     }
 
     return 0;
@@ -74,5 +80,11 @@ void playerMove(){
 }
 
 char checkWinner(){
+    for (int i = 0; i < 8; i++){
+        if(board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[3][i]){
+            return board[0][i];
+        }
+    }
+
 
 }
