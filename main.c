@@ -23,6 +23,7 @@ int main() {
         playerMove();
         winner = checkWinner();
         if (winner != ' '){
+            printf("jestem tu");
             break;
         }
 
@@ -86,5 +87,19 @@ char checkWinner(){
         }
     }
 
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            if (board[i][j] == board[i][j+1] && board[i][j] == board[i][j+2] && board[i][j] == board[i][j+3]){
+                return board[i][j];
+            }
+        }
+    }
 
+    for (int i = 0; i < 4; i++){
+        if(board[0][i] == board[1][i+1] && board[0][i] == board[2][i+2] && board[0][i] == board[3][i+3]){
+            return board[0][i];
+        }
+    }
+
+    return ' ';
 }
