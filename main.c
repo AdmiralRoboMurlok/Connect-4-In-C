@@ -81,24 +81,28 @@ void playerMove(){
 }
 
 char checkWinner(){
-    for (int i = 0; i < 8; i++){
-        if(board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[3][i]){
+    for (int i = 0; i < 8; i++){ // Sprawdzenie vertyczne
+        if(board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[3][i] && board[0][i] != ' '){
             return board[0][i];
         }
     }
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 4; i++){ // Sprawdzenie horyzontalne
         for (int j = 0; j < 4; j++){
-            if (board[i][j] == board[i][j+1] && board[i][j] == board[i][j+2] && board[i][j] == board[i][j+3]){
+            if(board[i][j] == board[i][j+1] && board[i][j] == board[i][j+2] && board[i][j] == board[i][j+3] && board[i][j] != ' '){
                 return board[i][j];
             }
         }
     }
 
-    for (int i = 0; i < 4; i++){
-        if(board[0][i] == board[1][i+1] && board[0][i] == board[2][i+2] && board[0][i] == board[3][i+3]){
+    for (int i = 0; i < 4; i++){ // Sprawdzenie na skos z góry do dołu
+        if (board[0][i] == board[1][i+1] && board[0][i] == board[2][i+2] && board[0][i] == board[3][i+3] && board[0][i] != ' '){
             return board[0][i];
         }
+    }
+
+    for (int i = 0; i < 4; i++){ // Sprawdzenie na skos z dołu do góry
+        
     }
 
     return ' ';
