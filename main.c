@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
 
 char board[4][8];
 
 const char PLAYER = '*';
-const char computer =  'O';
+const char COMPUTER =  'O';
 
 void resetBoard();
 void drawBoard();
@@ -22,13 +25,17 @@ int main() {
 
         playerMove();
         winner = checkWinner();
-        if (winner != ' '){
-            printf("jestem tu");
+        if (winner != ' ' || possibleMoves() == 0){
             break;
         }
 
-
+        computerMove();
+        winner = checkWinner();
+        if (winner != ' ' || possibleMoves() == 0){
+            break;
+        }
     }
+
 
     return 0;
 }
@@ -80,6 +87,22 @@ void playerMove(){
     }
 }
 
+void computerMove(){
+    bool quit = true;
+    do{
+        srand(time(0));
+        int computerMove = rand() % 8;
+
+        for (int i = 0; i <= 4; i++){
+            if (board[4 - i][computerMove] == ' '){
+                quit = false;
+                board[4 - i][computerMove] = COMPUTER;
+                break;
+            }
+        }
+    } while (quit == true);
+}
+
 char checkWinner(){
     for (int i = 0; i < 8; i++){ // Sprawdzenie vertyczne
         if(board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[3][i] && board[0][i] != ' '){
@@ -88,21 +111,23 @@ char checkWinner(){
     }
 
     for (int i = 0; i < 4; i++){ // Sprawdzenie horyzontalne
-        for (int j = 0; j < 4; j++){
+        for (int j = 0; j <= 4; j++){
             if(board[i][j] == board[i][j+1] && board[i][j] == board[i][j+2] && board[i][j] == board[i][j+3] && board[i][j] != ' '){
                 return board[i][j];
             }
         }
     }
 
-    for (int i = 0; i < 4; i++){ // Sprawdzenie na skos z góry do dołu
+    for (int i = 0; i <= 4; i++){ // Sprawdzenie na skos z góry do dołu
         if (board[0][i] == board[1][i+1] && board[0][i] == board[2][i+2] && board[0][i] == board[3][i+3] && board[0][i] != ' '){
             return board[0][i];
         }
     }
 
-    for (int i = 0; i < 4; i++){ // Sprawdzenie na skos z dołu do góry
-        
+    for (int i = 0; i <= 4; i++){ // Sprawdzenie na skos z dołu do góry
+        if (board[3][i] == board[2][i+1] && board[3][i] == board[1][i+2] && board[3][i] == board[0][i+3] && board[3][i] != ' '){
+            return board[3][i];
+        }
     }
 
     return ' ';
